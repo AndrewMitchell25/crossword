@@ -22,8 +22,12 @@ int main(int argc, char *argv[])
     {
         // get input from the file that is named in argument 1
         size = getFileInput(words, argv[1]);
-        // if there are too many arguments print an error and end
+        if (size == 0)
+        {
+            return 1;
+        }
     }
+    // if there are too many arguments print an error and end
     else
     {
         printf("Error - too many arguments\n");

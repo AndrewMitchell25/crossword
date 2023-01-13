@@ -79,7 +79,7 @@ int getFileInput(char words[LISTSIZE][WORDSIZE], char argv[])
     if (!fp)
     {
         printf("File %s cannot be found.\n", argv);
-        return;
+        return 0;
     }
     // print the header
     printf("\nAnagram Crossword Puzzle Generator\n");
@@ -89,12 +89,12 @@ int getFileInput(char words[LISTSIZE][WORDSIZE], char argv[])
     int size = 0;
     char line[WORDSIZE];
     // use an infinite loop to traverse the file
-    while (1)
+    while (!feof(fp))
     {
         // get the line from the file
         fgets(line, WORDSIZE, fp);
         // if the end of the file is reached or a period then break the loop
-        if (feof(fp) || strcmp(line, ".") == 0)
+        if (strcmp(line, ".") == 0)
         {
             break;
         }
@@ -122,7 +122,8 @@ int getFileInput(char words[LISTSIZE][WORDSIZE], char argv[])
         if (!flag)
         {
             upperCase(line);
-            strncpy(words[size], line, strlen(line) - 1);
+            line[strlen(line) - 1] = '\0';
+            strcpy(words[size], line);
             size += 1;
         }
     }
